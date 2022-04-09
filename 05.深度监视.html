@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h3>{{numbers.c}}</h3>
+        <h3>{{a}}</h3>
+        <button @click="numbers.c++">点击c++</button>
+        <button @click="a++">点击a++</button>
+
+    </div>
+
+
+    <script>
+        const vm= new Vue({
+            el: '#root',
+            data: {
+                a: 1,
+                b: 3,
+                numbers: {
+                    c: 2
+                }
+            },
+            // 普通监视
+            watch: {
+                'numbers.c': {
+                    handler(newvalue, oldvalue) {
+                        console.log(newvalue, oldvalue);
+                    }
+                },
+                // 深度监视
+                'numbers': {
+                    deep: true,
+                    handler() {
+                        console.log('c改变了');
+                    }
+                },
+                // 监视简写
+                a(newvalue,oldvalue){
+                    console.log(newvalue,oldvalue);
+                }
+            },
+            
+
+        })
+        // $方法要写在vm外面
+        vm.$watch('a',function(a,b){ 
+            console.log(a,b);
+        })
+    </script>
+</body>
+
+</html>

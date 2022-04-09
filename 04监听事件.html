@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>今天天气很{{info}}</h2>
+        <button @click="weather" >切换天气</button>
+    </div>
+
+
+
+    <script>
+        Vue.config.productionTip = false
+
+
+        new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+            },
+            methods: {
+                weather() {
+                    this.isHot = !this.isHot
+                }
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '很热' : '凉爽' 
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

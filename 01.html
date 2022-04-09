@@ -11,23 +11,23 @@
 
 <body>
     <div id="root">
-        <h1>{{a}}</h1>
-        <div>jjj</div>
-        <a :href="url">跳转</a>
+        <h1>{{age}}</h1>
+
         <!-- {{Date.now()}} -->
     </div>
-    
+
 
 
     <script>
         Vue.config.productionTip = false   //阻止vue在启动时产生提示
-        const app = new Vue({
+
+        const vm = new Vue({
             el: '#root',   //用于指定当前vue实例为那个服务器服务，值通常为css选择器形式
-            data: {
-                a: 'ddd',
-                url:'http://www.baidu.com'
+            data:{
+                age: 12
             }
         })
+        console.log(vm);
 
     </script>
 </body>

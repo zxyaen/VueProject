@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="vm">
+        <h1>欢迎来到{{name}}</h1>
+        <button v-on:click="showInfo">提示</button>
+
+        <input type="text" placeholder="按下按键响应按键名" @keyup="show" >
+    </div>
+
+    <div class="box1">
+        <div class="box">
+
+        </div>
+    </div>
+
+    
+
+    <script>
+
+        new Vue({
+            el: '#vm',
+            data: {
+                name: 'x'
+            },
+            methods: {
+                showInfo(e) {
+                    alert('你好')
+                },
+                show(e){
+                    console.log(e.key,e.keyCode);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
