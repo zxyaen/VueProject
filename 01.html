@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"> </script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>{{a}}</h1>
+        <div>jjj</div>
+        <a :href="url">跳转</a>
+        <!-- {{Date.now()}} -->
+    </div>
+    
+
+
+    <script>
+        Vue.config.productionTip = false   //阻止vue在启动时产生提示
+        const app = new Vue({
+            el: '#root',   //用于指定当前vue实例为那个服务器服务，值通常为css选择器形式
+            data: {
+                a: 'ddd',
+                url:'http://www.baidu.com'
+            }
+        })
+
+    </script>
+</body>
+
+</html>
