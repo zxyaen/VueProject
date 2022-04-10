@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" placeholder="请输入" v-model="keyWord">
+
+        <button @click="flag=2">升序</button>
+        <button @click="flag=1">降序</button>
+        <button @click="flag=0">原顺序</button>
+
+        <ul>
+            <li v-for="p in fillName" :key="p.id">
+                {{p.name}}--{{p.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                keyWord: '',
+                flag: 0,
+                persons: [
+                    { id: 1, name: '马冬梅', age: 23 },
+                    { id: 2, name: '周杰伦', age: 20 },
+                    { id: 3, name: '周雨彤', age: 34 },
+                    { id: 4, name: '韩冬冬', age: 12 },
+                ]
+            },
+            computed: {
+                fillName() {
+
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) != -1
+                    })
+                    // 判断是否需要排序
+                    if (this.flag) {
+                        arr.sort((p1, p2) => {
+                            return this.flag === 1 ? p2.age - p1.age : p1.age - p2.age
+                        })
+                    }
+                    return arr
+
+
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>
