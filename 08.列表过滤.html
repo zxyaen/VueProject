@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input type="text" v-model="keyWords">
+        <ul>
+            <li v-for="i in fillpersons" :key="i.id">
+                {{i.name}}-{{i.age}}--{{i.sex}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+
+        // 用watch实现列表过滤
+        // #region
+        // new Vue({
+        //     el: '#root',
+        //     data: {
+        //         keyWords: '',
+        //         persons: [
+        //             {
+        //                 id: 01,
+        //                 name: '周杰伦',
+        //                 age: 12,
+        //                 sex: '男'
+        //             },
+        //             {
+        //                 id: 02,
+        //                 name: '马冬梅',
+        //                 age: 15,
+        //                 sex: '女'
+        //             },
+        //             {
+        //                 id: 03,
+        //                 name: '周冬雨',
+        //                 age: 24,
+        //                 sex: '女'
+
+        //             }, {
+        //                 id: 03,
+        //                 name: '温兆伦',
+        //                 age: 24,
+        //                 sex: '男'
+
+        //             }],
+        //         filePerson: []
+        //     },
+        //     watch: {
+        //         keyWords: {
+        //             immediate: true,
+        //             handler(val) {
+        //                 this.filePerson = this.persons.filter((i) => {
+        //                     return i.name.indexOf(val) != -1
+        //                 })
+        //                 console.log('数据改变了', val)
+        //             }
+
+        //         }
+        //     }
+        // })
+        // #endregion
+
+
+        // 计算属性实现过滤
+        new Vue({
+            el: '#root',
+            data: {
+                keyWords: '',
+                persons: [
+                    { id: 01, name: '周杰伦', age: 12, sex: '男' },
+                    { id: 02, name: '马冬梅', age: 15, sex: '女' },
+                    { id: 03, name: '周冬雨', age: 24, sex: '女' },
+                    { id: 03, name: '温兆伦', age: 24, sex: '男' }
+                ],
+            },
+            computed: {
+                fillpersons() {
+                    return this.persons.filter((i) => {
+                        return i.name.indexOf(this.keyWords) != -1
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
