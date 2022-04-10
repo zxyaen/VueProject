@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <ul>
+            <li v-for="i in persons">
+                {{i.name}}-{{i.age}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    {
+                        id: 01,
+                        name: 'zs',
+                        age: 12
+                    },
+                    {
+                        id: 02,
+                        name: 'ls',
+                        age: 15
+                    },
+                    {
+                        id:03,
+                        name:'ww',
+                        age:24
+                    }]
+            }
+        })
+    </script>
+</body>
+
+</html>
