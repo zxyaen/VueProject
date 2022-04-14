@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 定义一个容器 -->
+
+    <div id="root">
+        <!-- 使用组件 -->
+        <!-- <school></school>
+        <hr> -->
+        <!-- 组件复用 -->
+        <!-- <school></school> -->
+
+        <!-- 使用app管理组件 -->
+        <app></app>
+
+    </div>
+
+
+
+    <script>
+
+        // 初始化学生组件
+        const student = {
+            template:
+                `
+            <div>
+            <p>{{name}}</p>
+            <h5>{{age}}</h5>
+            </div>
+            `,
+            data() {
+                return {
+                    name: 'zs',
+                    age: 18
+                }
+
+            }
+        }
+  
+  
+        // 初始化school组件
+        const school = Vue.extend({
+            // data定义时需要用函数形式
+            template:
+            `
+            <div>
+            <p>{{name}}</p>
+            <h5>{{address}}</h5>
+            <student></student>
+            </div>
+            `,
+            data() {
+                return {
+                    name: ' CDUT',
+                    address: '二仙桥'
+                }
+            },
+            // 组件嵌套之前，要在父组件里注册子组件
+            components: {
+                student
+            },
+
+
+            // 定义一个模版，注意：
+            // 1.要使用模版字符串包裹起来才可以换行写
+            // 2.定义的模版外部要用div根节点包裹起来
+            
+        })
+
+        // 初始化hello组件
+        const hello = {
+            data() {
+                return {
+                    str: 'hello'
+                }
+            },
+            template:
+                `
+            <div>
+                <span>{{str}}</span>
+            </div>
+            `,
+        }
+
+        // 定义app组件
+        const app = Vue.extend({
+            components: {
+                hello,
+                school,
+                
+            },
+            template:
+                `
+            <div>
+            <hello></hello>
+            <school></school>
+            </div>
+            `,
+
+        })
+
+        // 注册全局组件
+        // 全局注册的组件要放在vm实例之前
+        // Vue.component('school',s)
+
+        // 创建一个vm实例
+        new Vue({
+            el: '#root',
+            // 注册组件
+            data:{
+                a:2
+            },
+            components: {
+                app
+            },
+        })
+
+    </script>
+
+</body>
+
+</html>

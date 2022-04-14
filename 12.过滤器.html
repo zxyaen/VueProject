@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/dayjs/dayjs.min.js"></script>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <span>现在时间：{{time|getFormat}}</span>
+        <div>{{a}}</div>
+    </div>
+
+
+    <script>
+        const time = new Date()
+
+        new Vue({
+            el: '#root',
+            data: {
+                a:'<h1>hi</h1>',
+                time
+            },
+            // computed: {
+            //     fmtTime() {
+            //         return dayjs(that.time).format('YYYY年MM月DD日 HH:mm:ss')
+            //     }
+            // },
+            // 过滤器实现
+            // 局部过滤器
+            filters: {
+                getFormat(value) {
+                    return dayjs(value).format('YYYY年MM月DD日 HH:mm:ss')
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
