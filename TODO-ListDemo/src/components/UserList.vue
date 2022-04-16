@@ -5,8 +5,6 @@
               v-for="todo in todolist" 
               :key="todo.id" 
               :todoObj='todo' 
-              :changeDone='changeDone' 
-              :handelDelete='handelDelete'  
             />
             <!-- 通过for in遍历，动态的将待做事项todos渲染到列表中 -->
             <!-- ：key绑定id做唯一标识父符 -->
@@ -21,7 +19,7 @@ import UserItem from './UserItem.vue'
 export default {
     name:'UserList',
     components:{UserItem},
-    props:['todolist','changeDone','handelDelete'],
+    props:['todolist'],
 }
 </script>
 

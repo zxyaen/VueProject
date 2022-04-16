@@ -19,15 +19,16 @@ export default {
   },
   methods:{
     addTodo(){
-      if(!this.title) return alert('输入不能为空')
+      if(!this.title.trim()) return alert('输入不能为空')
       // nanoid包下的nanoid方法用于随机获取一个id
       const item={id:nanoid(),title:this.title,done:false}
       // 将添加的todo对象传给app组件中的todos
-      this.addTodoList(item)
+      // this.addTodoList(item)
+      this.$emit('addTodoList',item)
       this.title=''
     }
   },
-  props:['addTodoList']
+  // props:['addTodoList']
 };
 </script>
 

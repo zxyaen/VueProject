@@ -1,45 +1,34 @@
 <template>
-  <div class="box2">
-    <h1>{{ mes }}</h1>
-    <h2 @click="showName">学生姓名：{{ name }}</h2>
-    <h2>年龄：{{ age  }}</h2>
-    <h2>地址：{{ address }}</h2>
+  <div class="box1">
+    <h2>学生姓名：{{ name }}</h2>
+    <h2 class="demo">
+      年龄：<span>{{ age }}</span>
+    </h2>
+    <button @click="getName">传名字给school</button>
   </div>
 </template>
 
 <script>
-// import { mixin } from "../mixin";
-// import  from ''
 export default {
   data() {
     return {
-      mes: "hhh",
-      // name:'zs',
-      // age:12,
-      // address:'as'
+      name: "zds",
+      age: 12,
     };
   },
-  props: ["name", "age", "address"],
-
-  // props:{
-  //   name:String,
-  //   age:Number,
-  //   address:String
-  // }
-
-  // props: {
-  //   name: {
-  //     type: String,
-  //     required: true,
-  //     default: "zs",
-  //   },
-  // },
-  // mixins: [mixin],
-}
+  methods: {
+    getName() {
+      this.$bus.$emit("getStudentName", this.name);
+    },
+  },
+  mounted() {},
+};
 </script>
 
-<style>
-.box2 {
+<style scoped lang="less">
+.box1 {
   background-color: rebeccapurple;
+  padding: 5px;
+  margin: 5px;
 }
 </style>

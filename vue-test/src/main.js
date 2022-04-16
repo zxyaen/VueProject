@@ -16,11 +16,17 @@ new Vue({
     el: '#app',
     components: { App },
     //render函数，用于解决残缺版vue不支持模版字符串的问题
-    render: h => h(App)
+    render: h => h(App),
     /*
     完整写法
      render(CreatElement) {
         return CreatElement('html标签','标签内容')
     },
     */
+     // 安装全局事件总线
+  beforeCreate(){
+    // $bus就是当前应用的vm
+    // 给vm的原型上挂$bus属性
+    Vue.prototype.$bus=this
+  }
 })

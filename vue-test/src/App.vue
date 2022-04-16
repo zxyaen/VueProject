@@ -1,10 +1,7 @@
 <template>
-  <div>
-    <h1 ref="txt">{{ msg }}</h1>
-    <button @click="showDOM" ref="btn">点击获取上方DOM元素</button>
-    <school ref="sch"></school>
-    <student></student>
-    <student name='xixi' :age='13' address='wl'/>
+  <div class="box">
+    <h1>{{ mes }}</h1>
+    <school></school>
     <student />
   </div>
 </template>
@@ -12,21 +9,26 @@
 <script>
 import student from "./components/student-info.vue";
 import school from "./components/school-info.vue";
-export default {
-  name: "app",
-  components: {
-    school,
+export default{
+  name:'App',
+  data(){
+    return{
+      mes:'欢迎'
+    }
+  },
+  methods:{
+
+  },
+  components:{
     student,
+    school
   },
-  data() {
-    return {
-      msg: "你好",
-    };
-  },
-  methods: {
-    showDOM() {
-      console.log(this.$refs);
-    },
-  },
-};
+
+}
 </script>
+<style>
+.box {
+  overflow: hidden;
+  background-color: rgb(208, 57, 57);
+}
+</style>

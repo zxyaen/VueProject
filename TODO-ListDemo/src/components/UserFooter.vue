@@ -2,7 +2,7 @@
   <div>
     <div class="todo-footer" v-show="total">
       <label>
-        <input type="checkbox" :cbhecked="isAll" @click="checkAll" />
+        <input type="checkbox" v-model="isAll" />
       </label>
       <span>
         <span>已完成{{ doneTotal }}</span> / 全部{{ total }}
@@ -15,7 +15,7 @@
 <script scoped>
 export default {
   name: "UserFooter",
-  props: ["todos","checkedAll","clearTodo"],
+  props: ["todos", "checkedAll", "clearTodo"],
   computed: {
     doneTotal() {
       // todo是一个todos遍历到的对象
@@ -24,20 +24,26 @@ export default {
     total() {
       return this.todos.length;
     },
-    isAll() {
-      if (this.doneTotal === this.total && this.total > 0) return true
+    isAll: {
+      get() {
+        return this.doneTotal === this.total && this.total > 0;
+      },
+
+      set(value) {
+        this.checkedAll(value);
+      },
     },
   },
-  methods:{
-    checkAll(e){
+  methods: {
+    checkAll(e) {
       // console.log(e.target.checked);
-      const done= e.target.checked
-      this.checkedAll(done)
+      const done = e.target.checked;
+      this.checkedAll(done);
     },
-    clearAll(){
-      this.clearTodo()
-    }
-  }
+    clearAll() {
+      this.clearTodo();
+    },
+  },
 };
 </script>
 

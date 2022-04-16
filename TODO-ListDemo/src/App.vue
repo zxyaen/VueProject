@@ -3,12 +3,10 @@
     <div id="root">
       <div class="todo-container">
         <div class="todo-wrap">
-          <UserHeader :addTodoList="addTodoList" />
-          <UserList
-            :todolist="todos"
-            :changeDone="changeDone"
-            :handelDelete="handelDelete"
-          />
+          <!-- 给header绑定了一个自定义事件 -->
+          <UserHeader @addTodoList="addTodoList" />
+
+          <UserList :todolist="todos" />
           <UserFooter
             :todos="todos"
             :checkedAll="checkedAll"
@@ -34,30 +32,40 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: "001", //id使用字符串，js中数字是有尽头的，常用哈希值s
-          title: "吃饭",
-          done: true, //记录是否做了,注意，这里传入的不应是字符串，传布尔值
-        },
-        { id: "002", title: "睡觉", done: false },
-        { id: "003", title: "打豆豆", done: false },
-      ],
+      //由于todos是MyHeader组件和MyFooter组件都在使用，所以放在App中（状态提升）
+      todos: JSON.parse(localStorage.getItem("todos")) || [], //本地有内容时todos赋值为本地存储内容，没有内容则赋值空数组
+      // {
+      //   id: "001", //id使用字符串，js中数字是有尽头的，常用哈希值s
+      //   title: "吃饭",
+      //   done: true, //记录是否做了,注意，这里传入的不应是字符串，传布尔值
+      // },
+      // { id: "002", title: "睡觉", done: false },
+      // { id: "003", title: "打豆豆", done: false },
     };
   },
   methods: {
     // 向列表添加事项
     addTodoList(value) {
       this.todos.unshift(value);
-      console.log(value);
+      // console.log(value);
     },
     // 改变选择框布尔值
     changeDone(id) {
       this.todos.forEach((todo) => {
         // console.log(id);
         // console.log(todo.id);
-        if (todo.id == id) {
+        if (todo.id === id) {
           todo.done = !todo.done;
+        }
+      });
+    },
+    // 编辑
+    Editor(id,title) {
+      this.todos.forEach((todo) => {
+        // console.log(id);
+        // console.log(todo.id);
+        if (todo.id === id) {
+          todo.title = title;
         }
       });
     },
@@ -87,6 +95,29 @@ export default {
       });
     },
   },
+  // 添加监视事件
+  watch: {
+    // 监视对象是todos
+    todos: {
+      // 开启深度监视
+      // handler回调函数，存储数据到本地
+      handler(value) {
+        localStorage.setItem("todos", JSON.stringify(value));
+      },
+      deep: true,
+    },
+  },
+  // 设置全局事件总线
+  mounted() {
+    this.$bus.$on("changeDone", this.changeDone);
+    this.$bus.$on("handelDelete", this.handelDelete);
+    this.$bus.$on("Editor", this.Editor);
+  },
+  beforeDestroy() {
+    this.$bus.$off("changeDone");
+    this.$bus.$off("handelDelete");
+    this.$bus.$off("Editor");
+  },
 };
 </script>
 
@@ -114,6 +145,12 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+.btn-editor {
+  color: #fff;
+  background-color: #1ab584;
+  border: 1px solid #3ea325;
+  margin-right: 5px;
 }
 
 .btn-danger:hover {
