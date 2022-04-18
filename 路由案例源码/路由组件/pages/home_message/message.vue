@@ -60,11 +60,19 @@ export default {
       });
     },
   },
-
- 
- //钩子函数，控制路由组件激活失活
- activated() {
-    this.timer = setInterval(() => {
+  //  mounted() {
+  //     const timer = setInterval(() => {
+  //       this.opacity -= 0.01;
+  //       if (this.opacity <= 0) {
+  //         this.opacity = 1;
+  //       }
+  //     },16)
+  //   },
+  //   beforeDestroy() {
+  //     clearInterval(this.timer);
+  //   },
+  activated() {
+    const timer = setInterval(() => {
       this.opacity -= 0.01;
       if (this.opacity <= 0) {
         this.opacity = 1;
@@ -75,29 +83,6 @@ export default {
   deactivated() {
     clearInterval(this.timer)
   },
-
-  //独享路由守卫
-  beforeRouteEnter (to, from, next) {
-    // ...在路由组件进入前
-        // 进行权限判定
-    // if (to.path === '/home/message' || to.path === '/home/news') {
-    if(to.meta.isAuth){   //判断是否鉴权
-       
-        if (localStorage.getItem('school') === 'nihao') {
-            next()
-        } else {
-            alert(' 没有权限')
-        }
-    } else {
-        next()
-    }
-  },
-  beforeRouteLeave (to, from, next) {
-    // ...在路由组件离开前
-
-
-    next()  //放行
-  }
 };
 </script>
 
